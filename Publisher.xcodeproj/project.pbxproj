@@ -17,6 +17,7 @@
 		F6BFF56B27151C4C0099F44B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6BFF56A27151C4C0099F44B /* GoogleService-Info.plist */; };
 		F6BFF56E271529FF0099F44B /* HomePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BFF56C271529FF0099F44B /* HomePageCell.swift */; };
 		F6BFF56F271529FF0099F44B /* HomePageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BFF56D271529FF0099F44B /* HomePageCell.xib */; };
+		F6BFF575271530160099F44B /* PublishArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BFF574271530160099F44B /* PublishArticleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		F6BFF56A27151C4C0099F44B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F6BFF56C271529FF0099F44B /* HomePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageCell.swift; sourceTree = "<group>"; };
 		F6BFF56D271529FF0099F44B /* HomePageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageCell.xib; sourceTree = "<group>"; };
+		F6BFF574271530160099F44B /* PublishArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishArticleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				F6BFF56C271529FF0099F44B /* HomePageCell.swift */,
 				F6BFF56D271529FF0099F44B /* HomePageCell.xib */,
 				F6BFF55C271517DE0099F44B /* Main.storyboard */,
+				F6BFF574271530160099F44B /* PublishArticleViewController.swift */,
 				F6BFF55F271517E10099F44B /* Assets.xcassets */,
 				F6BFF561271517E10099F44B /* LaunchScreen.storyboard */,
 				F6BFF564271517E10099F44B /* Info.plist */,
@@ -220,6 +223,7 @@
 				F6BFF557271517DE0099F44B /* AppDelegate.swift in Sources */,
 				F6BFF559271517DE0099F44B /* SceneDelegate.swift in Sources */,
 				F6BFF56E271529FF0099F44B /* HomePageCell.swift in Sources */,
+				F6BFF575271530160099F44B /* PublishArticleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

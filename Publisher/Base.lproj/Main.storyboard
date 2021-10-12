@@ -39,6 +39,21 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="101.78571428571428"/>
         </scene>
+        <!--Publish Article View Controller-->
+        <scene sceneID="kpT-uP-kM1">
+            <objects>
+                <viewController storyboardIdentifier="Publish" id="VoD-Te-ii4" customClass="PublishArticleViewController" customModule="Publisher" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pfe-d1-E16">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="FsG-4h-yI3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sCP-A9-uV6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2054" y="102"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HRY-cV-teW">
             <objects>

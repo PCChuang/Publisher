@@ -85,7 +85,11 @@ class ViewController: UIViewController {
 
     // TODO: Add some logic for when the button is tapped.
     @IBAction private func doThisWhenButtonIsTapped(_ sender: Any) {
+        
         print("Button Tapped")
+        if let controller = storyboard?.instantiateViewController(identifier: "Publish") as? PublishArticleViewController {
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 
     private func constrainFloatingButtonToWindow() {
