@@ -28,6 +28,17 @@ class ViewController: UIViewController {
     private let animateFromValue: CGFloat = 1.00
     private let animateToValue: CGFloat = 1.05
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let nibName = UINib(nibName: "HomePageCell", bundle: nil)
+        tableView.register(nibName, forCellReuseIdentifier: "HomePageCell")
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+    }
+    
     func addData() {
         let articles = Firestore.firestore().collection("articles")
         let document = articles.document()
@@ -117,4 +128,23 @@ class ViewController: UIViewController {
             self.floatingButton?.layer.add(scaleAnimation, forKey: self.scaleKeyPath)
         }
     }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        6
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomePageCell", for: indexPath) as? HomePageCell
+        else {
+            fatalError()
+        }
+        
+        return cell
+    }
+    
+    
 }
