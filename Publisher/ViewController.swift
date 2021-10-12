@@ -29,18 +29,32 @@ class ViewController: UIViewController {
     private let animateFromValue: CGFloat = 1.00
     private let animateToValue: CGFloat = 1.05
     
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let nibName = UINib(nibName: "HomePageCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "HomePageCell")
         
+        navigationController?.navigationBar.barTintColor = UIColor(red: 46 / 255, green: 14 / 255, blue: 128 / 255, alpha: 1)
+        
         tableView.dataSource = self
         tableView.delegate = self
         
         fetchData()
-        tableView.reloadData()
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        DispatchQueue.main.async() {
+            self.refreshControl.endRefreshing()
+            self.tableView.reloadData()
+        }
     }
 
     let db = Firestore.firestore()
@@ -48,6 +62,7 @@ class ViewController: UIViewController {
     var articleTitles: [String] = []
     var articleCategories: [String] = []
     var articleContents: [String] = []
+    var articleCreatedTime: [Timestamp] = []
     
     func fetchData() {
         
@@ -58,7 +73,7 @@ class ViewController: UIViewController {
                 print("Fetching data failed...:\(err)")
             } else {
                 for document in querySnapshot!.documents {
-//                    print("\(document.documentID) => \(document.data())")
+                    
                     guard let articleTitle = document.get("title") as? String
                     else {
                         print("getting title failed...")
@@ -74,12 +89,20 @@ class ViewController: UIViewController {
                         print("getting category failed...")
                         return
                     }
+                    guard let articleCreatedTime = document.get("createdTime") as? Timestamp
+                    else {
+                        print("getting time failed")
+                        return
+                    }
                     
                     self.articleTitles.append(articleTitle)
                     self.articleContents.append(articleContent)
                     self.articleCategories.append(articleCategory)
+                    self.articleCreatedTime.append(articleCreatedTime)
                     
                     self.tableView.reloadData()
+                    self.sortTableView()
+                    print(articleCreatedTime)
                     
                 }
             }
@@ -181,8 +204,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLbl.text = articleTitles[indexPath.row]
         cell.categoryLbl.text = articleCategories[indexPath.row]
         cell.contentLbl.text = articleContents[indexPath.row]
+        cell.timeLbl.text = "\(articleCreatedTime[indexPath.row])"
+        cell.authorLbl.text = "AKA小安老師"
         
         return cell
+    }
+    
+    func sortTableView() {
+        
+        articleCreatedTime = articleCreatedTime.sorted { $0.seconds > $1.seconds }
+        tableView.reloadData()
+        
     }
     
     

@@ -26,7 +26,7 @@ class PublishArticleViewController: UIViewController {
 //        let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
         
         addData()
-        
+        _ = navigationController?.popViewController(animated: true)
         
     }
     
@@ -44,6 +44,11 @@ class PublishArticleViewController: UIViewController {
     func addData() {
         let articles = Firestore.firestore().collection("articles")
         let document = articles.document()
+        
+        let timestamp = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(timestamp)
+        let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
         let data: [String: Any] = [
             "author": [
                 "email": "wayne@school.appworks.tw",
@@ -52,7 +57,7 @@ class PublishArticleViewController: UIViewController {
             ],
             "title": titleText,
             "content": contentText,
-            "createdTime": NSDate().timeIntervalSince1970,
+            "createdTime": time,
             "id": document.documentID,
             "category": "Beauty"
         ]
