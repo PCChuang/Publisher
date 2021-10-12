@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    // add-button setup
     private var floatingButton: UIButton?
     private let floatingButtonImageName = "Icons_24px_Add01"
     private static let buttonHeight: CGFloat = 75.0
@@ -37,26 +38,56 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-    }
-    
-    func addData() {
-        let articles = Firestore.firestore().collection("articles")
-        let document = articles.document()
-        let data: [String: Any] = [
-            "author": [
-                "email": "wayne@school.appworks.tw",
-                "id": "waynechen323",
-                "name": "AKA小安老師"
-            ],
-            "title": "IU「亂穿」竟美出新境界！笑稱自己品味奇怪　網笑：靠顏值撐住女神氣場",
-            "content": "南韓歌手IU（李知恩）無論在歌唱方面或是近期的戲劇作品都有亮眼的成績，但俗話說人無完美、美玉微瑕，曾再跟工作人員的互動影片中坦言自己品味很奇怪，近日在IG上分享了宛如「媽媽們青春時代的玉女歌手」超復古穿搭造型，卻意外美出新境界。",
-            "createdTime": NSDate().timeIntervalSince1970,
-            "id": document.documentID,
-            "category": "Beauty"
-        ]
-        document.setData(data)
+        fetchData()
+        tableView.reloadData()
+        
     }
 
+    let db = Firestore.firestore()
+    
+    var articleTitles: [String] = []
+    var articleCategories: [String] = []
+    var articleContents: [String] = []
+    
+    func fetchData() {
+        
+        print("start fetch")
+        
+        db.collection("articles").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Fetching data failed...:\(err)")
+            } else {
+                for document in querySnapshot!.documents {
+//                    print("\(document.documentID) => \(document.data())")
+                    guard let articleTitle = document.get("title") as? String
+                    else {
+                        print("getting title failed...")
+                        return
+                    }
+                    guard let articleContent = document.get("content") as? String
+                    else {
+                        print("getting content failed...")
+                        return
+                    }
+                    guard let articleCategory = document.get("category") as? String
+                    else {
+                        print("getting category failed...")
+                        return
+                    }
+                    
+                    self.articleTitles.append(articleTitle)
+                    self.articleContents.append(articleContent)
+                    self.articleCategories.append(articleCategory)
+                    
+                    self.tableView.reloadData()
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         createFloatingButton()
@@ -137,7 +168,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        6
+        articleTitles.count
     }
     
     
@@ -146,6 +177,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             fatalError()
         }
+        
+        cell.titleLbl.text = articleTitles[indexPath.row]
+        cell.categoryLbl.text = articleCategories[indexPath.row]
+        cell.contentLbl.text = articleContents[indexPath.row]
         
         return cell
     }

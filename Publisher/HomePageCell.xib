@@ -64,6 +64,13 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="authorLbl" destination="Lky-cU-rfr" id="6dg-TX-Mvo"/>
+                <outlet property="categoryLbl" destination="rZo-Bo-nBI" id="WHq-Yb-pbG"/>
+                <outlet property="contentLbl" destination="G4e-qz-XGA" id="fnA-IK-J1F"/>
+                <outlet property="timeLbl" destination="guF-An-bU4" id="uQs-69-k2N"/>
+                <outlet property="titleLbl" destination="BU5-IF-oSE" id="Zu1-MM-bxy"/>
+            </connections>
             <point key="canvasLocation" x="257.97101449275362" y="169.08482142857142"/>
         </tableViewCell>
     </objects>
